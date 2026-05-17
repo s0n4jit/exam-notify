@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Exam Schedule</title>
+  <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">📅</text></svg>'>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #c0392b;
+      --bg:     #f5f2ec;
+      --ink:    #1a1714;
+      --line:   #d4cfc8;
+      --muted:  #8a8278;
+      --card:   #fff;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      min-height: 100vh;
+      padding: 3rem 1.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      animation: fadeDown 0.7s ease both;
+    }
+
+    .label {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    h1 span { color: var(--accent); }
+
+    .divider {
+      width: 2.5rem;
+      height: 2px;
+      background: var(--accent);
+      margin: 1.2rem auto 0;
+    }
+
+    /* ── Loading / Error states ── */
+    .state {
+      width: 100%;
+      max-width: 580px;
+      text-align: center;
+      padding: 3rem 0;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .state.error { color: var(--accent); }
+
+    .spinner {
+      width: 20px; height: 20px;
+      border: 2px solid var(--line);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      animation: spin 0.7s linear infinite;
+    }
+
+    /* ── Schedule ── */
+    .schedule {
+      width: 100%;
+      max-width: 580px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .exam-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-bottom: none;
+      padding: 1.4rem 1.6rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.5s ease both;
+      transition: background 0.2s;
+    }
+
+    .exam-card:first-child { border-radius: 6px 6px 0 0; }
+    .exam-card:last-child  { border-bottom: 1px solid var(--line); border-radius: 0 0 6px 6px; }
+
+    .exam-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.25s ease;
+    }
+
+    .exam-card:hover { background: #faf8f5; }
+    .exam-card:hover::before { transform: scaleY(1); }
+
+    .exam-card:nth-child(1)  { animation-delay: 0.08s; }
+    .exam-card:nth-child(2)  { animation-delay: 0.16s; }
+    .exam-card:nth-child(3)  { animation-delay: 0.24s; }
+    .exam-card:nth-child(4)  { animation-delay: 0.32s; }
+    .exam-card:nth-child(5)  { animation-delay: 0.40s; }
+    .exam-card:nth-child(6)  { animation-delay: 0.48s; }
+    .exam-card:nth-child(7)  { animation-delay: 0.56s; }
+    .exam-card:nth-child(8)  { animation-delay: 0.64s; }
+    .exam-card:nth-child(9)  { animation-delay: 0.72s; }
+    .exam-card:nth-child(10) { animation-delay: 0.80s; }
+
+    .left .date {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .left .subject {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+    }
+
+    .left .code {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+    }
+
+    .right { text-align: right; }
+
+    .time-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      padding: 0.3rem 0.65rem;
+      white-space: nowrap;
+    }
+
+    .day-chip {
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.4rem;
+      display: block;
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+      animation: fadeUp 0.7s 0.55s ease both;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 400px) {
+      .exam-card { padding: 1.1rem 1.2rem; }
+      .left .subject { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="label">4th Semester · Sessional Examinations</p>
+    <h1>Exam <span>Schedule</span></h1>
+    <div class="divider"></div>
+  </header>
+
+  <div id="root" class="schedule">
+    <!-- Loading state -->
+    <div class="state" id="loading">
+      <div class="spinner"></div>
+      Loading exams...
+    </div>
+  </div>
+
+  <footer>All the best · Study hard 🎯</footer>
+
+  <script>
+    // Converts "2026-04-23" → { display: "23 Apr 2026" }
+    function formatDate(iso) {
+      const [y, m, d] = iso.split("-");
+      const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      return `${parseInt(d)} ${months[parseInt(m) - 1]} ${y}`;
+    }
+
+    function renderExams(exams) {
+      const root = document.getElementById("root");
+      root.innerHTML = "";
+
+      if (!exams.length) {
+        root.innerHTML = `<div class="state">No exams scheduled.</div>`;
+        return;
+      }
+
+      exams.forEach((exam) => {
+        const card = document.createElement("div");
+        card.className = "exam-card";
+        card.innerHTML = `
+          <div class="left">
+            <p class="date">${formatDate(exam.date)}</p>
+            <p class="subject">${exam.subject}</p>
+            <p class="code">${exam.code}</p>
+          </div>
+          <div class="right">
+            <span class="time-badge">${exam.time}</span>
+            <span class="day-chip">${exam.day}</span>
+          </div>`;
+        root.appendChild(card);
+      });
+    }
+
+    // Fetch exams.json — single source of truth
+    fetch("exams.json")
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((exams) => renderExams(exams))
+      .catch((err) => {
+        document.getElementById("root").innerHTML =
+          `<div class="state error">⚠ Could not load exams.json<br><small>${err.message}</small></div>`;
+      });
+  </script>
+
+</body>
+</html>
