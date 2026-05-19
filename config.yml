@@ -8,7 +8,7 @@ site:
   title: "Exam Schedule"           # Browser tab title
   heading: "Exam"                  # Big heading (left word)
   heading_accent: "Schedule"       # Big heading (right word, shown in red)
-  label: "4th Semester · Sessional Examinations"  # Small text above heading
+  label: "4th Semester · Final Examinations"  # Small text above heading
   footer: "All the best · Study hard 🎯"
 
 # Accent color for the site (hex)
