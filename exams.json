@@ -1,8 +1,44 @@
 [
-  { "subject": "MFCS",  "code": "Major 5",  "date": "2026-04-23", "time": "1 – 2 PM",   "day": "Thursday"  },
-  { "subject": "DBMS",  "code": "Com. Sci.",  "date": "2026-04-24", "time": "10 – 11 AM", "day": "Friday"  },
-  { "subject": "OS",    "code": "Major 6",  "date": "2026-04-24", "time": "1 – 2 PM",   "day": "Friday"  },
-  { "subject": "Python Programming",    "code": "Major 7",  "date": "2026-04-25", "time": "1 – 2 PM",   "day": "Saturday"  },
-  { "subject": "AEC",   "code": "Elective", "date": "2026-04-27", "time": "1 – 2 PM",   "day": "Monday"    },
-  { "subject": "Math",  "code": "Core",     "date": "2026-04-29", "time": "10 – 11 AM", "day": "Wednesday" }
+  {
+    "subject": "DBMS",
+    "code": "Com. Sci.",
+    "date": "2026-06-08",
+    "time": "9 AM – 11:30 AM",
+    "day": "Monday"
+  },
+  {
+    "subject": "MFCS",
+    "code": "Major 5",
+    "date": "2026-06-10",
+    "time": "9 AM – 11:30 AM",
+    "day": "Wednesday"
+  },
+  {
+    "subject": "OS",
+    "code": "Major 6",
+    "date": "2026-06-12",
+    "time": "9 AM – 11:30 AM",
+    "day": "Friday"
+  },
+  {
+    "subject": "Python Programming",
+    "code": "Major 7",
+    "date": "2026-06-15",
+    "time": "9 AM – 11:30 AM",
+    "day": "Monday"
+  },
+  {
+    "subject": "Mathematics",
+    "code": "Minor",
+    "date": "2026-06-18",
+    "time": "1:30 PM – 4 PM",
+    "day": "Thursday"
+  },
+  {
+    "subject": "AEC",
+    "code": "Elective",
+    "date": "2026-06-20",
+    "time": "9:30 AM – 12 PM",
+    "day": "Saturday"
+  }
 ]
