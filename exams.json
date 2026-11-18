@@ -2,29 +2,36 @@
   {
     "subject": "Computer Networks",
     "code": "COM0500104MJ",
-    "date": "2026-09-23",
-    "time": "10 AM – 11 AM",
-    "day": "Wednesday"
+    "date": "2026-12-15",
+    "time": "1:30 PM – 4:00 PM",
+    "day": "Tuesday"
   },
   {
     "subject": "Software Engineering",
     "code": "COM0500204MJ",
-    "date": "2026-09-24",
-    "time": "10 AM – 11 AM",
+    "date": "2026-12-17",
+    "time": "9:00 AM – 11:30 AM",
     "day": "Thursday"
   },
   {
     "subject": "Web Technologies",
     "code": "COM0500304MJ",
-    "date": "2026-09-26",
-    "time": "1 PM – 2 PM",
+    "date": "2026-12-19",
+    "time": "9:00 AM – 11:30 AM",
     "day": "Saturday"
   },
   {
-    "subject": "Mathematics",
-    "code": "XXX4500X04MN",
-    "date": "2026-09-28",
-    "time": "10 AM – 11 AM",
+    "subject": "Multivariate Calculus",
+    "code": "MAT4500504MN",
+    "date": "2026-12-21",
+    "time": "1:30 PM – 4:00 PM",
     "day": "Monday"
+  },
+  {
+    "subject": "Numerical Analysis-I",
+    "code": "MAT4500604MN",
+    "date": "2026-12-23",
+    "time": "1:30 PM – 4:00 PM",
+    "day": "Wednesday"
   }
 ]
